@@ -159,7 +159,7 @@ var vrHMD, vrSensor;
 
       webGL.gl.uniform1f(shader.uniforms['eye'], eye);
       webGL.gl.uniform1f(shader.uniforms['projection'], projection);
-
+      //webGL.gl.uniform1f (shader.uniforms['time'], performance.now());
       var rotation = mat4.create();
       var totalRotation = quat.create();
 
@@ -188,10 +188,14 @@ var vrHMD, vrSensor;
 
       webGL.gl.uniformMatrix4fv(shader.uniforms['proj_inv'], false, inv);
 
-      if (eye === 0) { // left eye
-        webGL.gl.viewport(0, 0, canvas.width/2, canvas.height);
-      } else { // right eye
-        webGL.gl.viewport(canvas.width/2, 0, canvas.width/2, canvas.height);
+      if (shader.params.cyclops){
+        webGL.gl.viewport(0, 0, canvas.width, canvas.height);
+      } else {
+        if (eye === 0) { // left eye
+          webGL.gl.viewport(0, 0, canvas.width/2, canvas.height);
+        } else { // right eye
+          webGL.gl.viewport(canvas.width/2, 0, canvas.width/2, canvas.height);
+        }
       }
 
       // Draw
@@ -237,10 +241,16 @@ var vrHMD, vrSensor;
         perspectiveMatrix = util.mat4PerspectiveFromVRFieldOfView(rightParams.recommendedFieldOfView, 0.1, 10);
         webGL.drawOneEye(1, perspectiveMatrix);
       } else {
-        var ratio = (canvas.width/2)/canvas.height;
+        if (shader.params.cyclops){
+          var ratio = (canvas.width)/canvas.height;
+        } else { 
+          var ratio = (canvas.width/2)/canvas.height;
+        }
         mat4.perspective(perspectiveMatrix, Math.PI/2, ratio, 0.1, 10);
         webGL.drawOneEye(0, perspectiveMatrix);
-        webGL.drawOneEye(1, perspectiveMatrix);
+        if (!shader.params.cyclops){
+          webGL.drawOneEye(1, perspectiveMatrix);
+        }
       }
 
 

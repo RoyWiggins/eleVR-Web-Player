@@ -111,7 +111,8 @@ function runEleVRPlayer() {
       fragmentShaderName: 'shader-fs',
       vertexShaderName: 'shader-vs',
       attributes: ['aVertexPosition'],
-      uniforms: ['uSampler', 'eye', 'projection', 'proj_inv'],
+      uniforms: ['uSampler', 'eye', 'projection', 'proj_inv', 'time'],
+      cyclops: true,
     });
 
     webGL.initBuffers();
