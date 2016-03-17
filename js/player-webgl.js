@@ -108,7 +108,7 @@ var vrHMD, vrSensor;
       var shaderScript = document.getElementById(id);
 
       if (!shaderScript) {
-        return null;
+        return util.loadShaders(webGL.gl, "fs/"+id)[0];
       }
 
       var theSource = "";
