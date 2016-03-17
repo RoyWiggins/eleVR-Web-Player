@@ -13,7 +13,10 @@ uniform sampler2D uSampler;
 const float pi = 3.14159;
 const float pi2 = 2.0*pi;
 
-const float WIDTH = 1024.0;
+/* This should not be strictly necessary; the python code was designed to work in absolute pixel coordinates,
+    but the video player uses UV coordinates. We end up converting back and forth for no good reason right now. 
+*/
+const float WIDTH = 1028.0; 
 const float HEIGHT = WIDTH /2.0;
 
 vec2 iMouse = vec2(WIDTH/2.,HEIGHT/2.);
@@ -499,7 +502,7 @@ vec2 directionToPx(vec3 direction, float eye, float projection) {
 }
 
 vec4 pxToColor(vec2 px){
-    return texture2D(uSampler, px/vec2(WIDTH,HEIGHT));
+    return texture2D(uSampler, px);
 }
 vec2 demo1(vec2 fragCoord){
     vec2 center = vec2(WIDTH/2.,HEIGHT/2.);
@@ -509,10 +512,10 @@ vec2 demo1(vec2 fragCoord){
 }
 
 vec2 demo2(vec2 fragCoord){
-    vec2 center = iMouse.xy;//vec2(220.,150.);
-    CP1_mat transform = zoom_in_on_pixel_coords(iMouse.xy,3.,WIDTH);
-  vec2 outpt = apply_SL2C_elt_to_pt(transform,fragCoord.xy);
-  return outpt;
+    vec2 center = vec2(0.,0.);
+    CP1_mat transform = zoom_in_on_pixel_coords(center,3.,1.);
+    vec2 outpt = apply_SL2C_elt_to_pt(transform,fragCoord.xy);
+    return outpt;
 }
 vec2 demo3(vec2 fragCoord){
     vec2 center1 = vec2(iMouse.xy);
@@ -552,5 +555,7 @@ vec4 testpattern(vec2 fragCoord){
 void main(void) {
     gl_FragColor = pxToColor(
                         demo2(
-                        directionToPx(vDirection, eye, projection)*vec2(WIDTH,HEIGHT)));
+                            directionToPx(vDirection, eye, projection)*vec2(WIDTH,HEIGHT)
+                            )/vec2(WIDTH,HEIGHT)
+                        );
 }

@@ -1,3 +1,5 @@
+This branch has a port of @henryseg's [mobius transform](https://github.com/henryseg/spherical_image_editing) code to WebGL.
+
 eleVR Web Player
 ================
 
