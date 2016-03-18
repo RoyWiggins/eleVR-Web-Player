@@ -79,21 +79,22 @@ a:active {
   position:absolute;
   top:0; bottom:0; right:0; left:0;
 }
-
-#video-controls {
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	right: 0;
-  padding: 0 10px;
+.bar {
   opacity: .9;
   height: 30px;
   background-color: rgb(237,25,88);
-
   background: -webkit-linear-gradient(left top, rgb(190,25,141), rgb(237,25,88));
   background: -o-linear-gradient(bottom right, rgb(190,25,141), rgb(237,25,88));
   background: -moz-linear-gradient(bottom right, rgb(190,25,141), rgb(237,25,88));
   background: linear-gradient(to bottom right, rgb(190,25,141), rgb(237,25,88));
+  padding: 0 10px;
+  cursor:default;
+}
+#video-controls {
+  position: fixed;
+  left: 0;
+  right: 0;
+	bottom: 0;
 }
 
 #seek-bar {

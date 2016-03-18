@@ -159,7 +159,8 @@ var vrHMD, vrSensor;
 
       webGL.gl.uniform1f(shader.uniforms['eye'], eye);
       webGL.gl.uniform1f(shader.uniforms['projection'], projection);
-      //webGL.gl.uniform1f (shader.uniforms['time'], performance.now());
+      webGL.gl.uniform1f(shader.uniforms['iGlobalTime'], performance.now());
+      webGL.gl.uniform3fv(shader.uniforms['params'],  controls.params);
       var rotation = mat4.create();
       var totalRotation = quat.create();
 

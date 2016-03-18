@@ -5,22 +5,24 @@ varying vec3 vDirection;
 uniform float eye;
 uniform float projection;
 uniform float time;
+uniform float iGlobalTime;
+
+uniform vec3 params;
 
 
 uniform sampler2D uSampler;
 
 #define PI 3.1415926535897932384626433832795
-const float pi = 3.14159;
-const float pi2 = 2.0*pi;
+#define WIDTH 1028.0
+#define HEIGHT WIDTH/2.0
+
+const float pi2 = 2.0*PI;
 
 /* This should not be strictly necessary; the python code was designed to work in absolute pixel coordinates,
     but the video player uses UV coordinates. We end up converting back and forth for no good reason right now. 
 */
-const float WIDTH = 1028.0; 
-const float HEIGHT = WIDTH /2.0;
-
 vec2 iMouse = vec2(WIDTH/2.,HEIGHT/2.);
-float iGlobalTime = 10.0;
+
 float determinant(mat2 m) {
 return m[0][0]*m[1][1]-m[0][1]*m[1][0];
 }
@@ -512,8 +514,8 @@ vec2 demo1(vec2 fragCoord){
 }
 
 vec2 demo2(vec2 fragCoord){
-    vec2 center = vec2(0.,0.);
-    CP1_mat transform = zoom_in_on_pixel_coords(center,3.,1.);
+    vec2 center = params.yx * vec2(WIDTH,HEIGHT);
+    CP1_mat transform = zoom_in_on_pixel_coords(center,params.z+1.,WIDTH);
     vec2 outpt = apply_SL2C_elt_to_pt(transform,fragCoord.xy);
     return outpt;
 }
@@ -550,7 +552,7 @@ vec4 testpattern(vec2 fragCoord){
               sphere_from_CP1(
                   CP1_from_sphere(
                       sphere_from_pixel_coords(fragCoord.xy,WIDTH)))),WIDTH),WIDTH)));
-  return vec4(sphere.x/(2.*PI),(sphere.y+PI/2.)/pi,0.0,1.0);
+  return vec4(sphere.x/(2.*PI),(sphere.y+PI/2.)/PI,0.0,1.0);
 }
 void main(void) {
     gl_FragColor = pxToColor(

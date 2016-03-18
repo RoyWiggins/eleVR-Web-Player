@@ -21,7 +21,7 @@ var manualRotation = quat.create(),
     },
 
     manualRotateRate: new Float32Array([0, 0, 0]),  // Vector, camera-relative
-
+    params:[0,0,0],
     create: function() {
       playButton.addEventListener('click', function() {
         controls.playPause();
@@ -65,7 +65,14 @@ var manualRotation = quat.create(),
         var time = video.duration * (seekBar.value / 100);
         video.currentTime = time;
       });
-
+      for (var it = 0; it<3; it++){
+        (function() {
+          var x = it;   
+          window.paramSliders[x].addEventListener('change', function() {
+            controls.params[x] = this.value / 100.0;
+          });
+        })();
+      }
       video.addEventListener('timeupdate', function() {
         // don't update if paused,
         // we get last time update after seekBar mousedown pauses

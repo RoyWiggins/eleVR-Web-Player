@@ -71,6 +71,12 @@ function setupControls() {
   // Sliders
   window.seekBar = document.getElementById('seek-bar');
 
+  // Sliders
+  window.paramSliders = [ document.getElementById('param_a'),
+                          document.getElementById('param_b'),
+                          document.getElementById('param_c')
+                          ];
+
   // Selectors
   window.videoSelect = document.getElementById('video-select');
   window.projectionSelect = document.getElementById('projection-select');
@@ -111,7 +117,7 @@ function runEleVRPlayer() {
       fragmentShaderName: 'shader-fs',
       vertexShaderName: 'shader-vs',
       attributes: ['aVertexPosition'],
-      uniforms: ['uSampler', 'eye', 'projection', 'proj_inv', 'time'],
+      uniforms: ['uSampler', 'eye', 'projection', 'proj_inv', 'iGlobalTime','params'],
       cyclops: true,
     });
 

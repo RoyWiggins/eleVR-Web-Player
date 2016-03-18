@@ -57,6 +57,8 @@
 
 <body>
   <div id="video-container">
+
+
     <!-- Loading Message -->
     <div id="left-load" class="left">
       <div id="title-l" class="title">Loading Video...</div>
@@ -72,7 +74,6 @@
     <div id="right-play" class="right hidden">
       <a id="play-r" class="large-play fa fa-play fa-5x"></a>
     </div>
-
     <canvas id="glcanvas">
       Your browser doesn't appear to support the HTML5 <code>&lt;canvas&gt;</code> element.
     </canvas>
@@ -81,7 +82,15 @@
       <source src="therelaxatron.webm" type="video/webm">
     </video>
         <!-- Video Controls -->
-        <div id="video-controls" class="hidden">
+        <div id="top-controls" class="bar">
+          Param a:
+          <input type="range" id="param_a" value="0">
+          Param b:
+          <input type="range" id="param_b" value="0">
+          Param c:
+          <input type="range" id="param_c" value="0">
+        </div>
+        <div id="video-controls" class="hidden bar">
           <a id="play-pause" class="fa fa-play icon" title="Play"></a>
 
 
